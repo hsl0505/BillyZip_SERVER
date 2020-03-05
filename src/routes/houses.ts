@@ -11,7 +11,7 @@ export const housesRouter = Router();
 
 // Image Upload into AWS S3
 AWS.config.loadFromPath(
-  '/Users/joseongcheol/Desktop/code_states_im16/immersive16/07_final_project/BillyZip-server/src/config/awsconfig.json',
+  '/home/hyunsung/바탕화면/codestates/BillyZip-server/src/config/awsconfig.json',
 );
 
 const s3 = new AWS.S3();
@@ -29,17 +29,31 @@ const upload = multer({
 });
 
 // housesController
-housesRouter.post('/', upload.array('images', 7), authChecker, housesController.PostHouse);
+housesRouter.post(
+  '/',
+  upload.array('images', 7),
+  authChecker,
+  housesController.PostHouse,
+);
 housesRouter.get('/', authChecker, housesController.GetMainHouses);
 housesRouter.get('/all', authChecker, housesController.GetAllHouses);
 housesRouter.post('/filter', authChecker, housesController.PostFilterHouse);
 housesRouter.post('/search', authChecker, housesController.PostSearchHouse);
 housesRouter.get('/part/:type', authChecker, housesController.GetPartHouses);
 housesRouter.get('/:id', authChecker, housesController.GetHouse);
-housesRouter.put('/:id', upload.array('images', 7), authChecker, housesController.PutHouse);
+housesRouter.put(
+  '/:id',
+  upload.array('images', 7),
+  authChecker,
+  housesController.PutHouse,
+);
 housesRouter.delete('/:id', authChecker, housesController.DeleteHouse);
 
 // reviewController
 housesRouter.post('/:id/review', authChecker, reviewController.postReview);
 // housesRouter.put('/:id/review/:id', authChecker, reviewController.putReview);
-housesRouter.delete('/:id/review/:reviewId', authChecker, reviewController.deleteReview);
+housesRouter.delete(
+  '/:id/review/:reviewId',
+  authChecker,
+  reviewController.deleteReview,
+);
